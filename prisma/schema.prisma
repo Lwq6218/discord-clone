@@ -23,24 +23,24 @@ model Profile {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Server  Server[]
-  Member  Member[]
-  Channel Channel[]
+  servers  Server[]
+  members  Member[]
+  channels Channel[]
 }
 
 model Server {
   id         String  @id @default(uuid())
   name       String
   imageUrl   String  @db.Text
-  inviteCode String  @db.Text
+  inviteCode String  @unique
   profileId  String
   profile    Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Channel Channel[]
-  members Member[]
+  channels Channel[]
+  members  Member[]
 
   @@index([profileId])
 }
@@ -68,7 +68,7 @@ model Member {
 
 enum ChannelType {
   TEXT
-  VOICE
+  AUDIO
   VIDEO
 }
 
