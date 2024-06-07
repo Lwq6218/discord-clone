@@ -1,6 +1,6 @@
-import { currentProfile } from "@/lib/current-profile";
-import { db } from "@/lib/db";
-import { NextResponse } from "next/server";
+import { currentProfile } from '@/lib/current-profile';
+import { db } from '@/lib/db';
+import { NextResponse } from 'next/server';
 
 export async function PATCH(
   req: Request,
@@ -10,7 +10,7 @@ export async function PATCH(
   try {
     const profile = await currentProfile();
     if (!profile) {
-      return new NextResponse("Unauthorized", { status: 401 });
+      return new NextResponse('Unauthorized', { status: 401 });
     }
     const server = await db.server.update({
       where: {
@@ -24,7 +24,7 @@ export async function PATCH(
     });
     return NextResponse.json(server);
   } catch (error) {
-    console.log("[SERVER_ID_PATCH", error);
+    console.log('[SERVER_ID_PATCH', error);
   }
 }
 export async function DELETE(
@@ -33,10 +33,10 @@ export async function DELETE(
 ) {
   const profile = await currentProfile();
 
-  if (!profile) return new NextResponse("Unauthorized", { status: 401 });
+  if (!profile) return new NextResponse('Unauthorized', { status: 401 });
 
   if (!params.serverId)
-    return new NextResponse("Server ID is missing", { status: 400 });
+    return new NextResponse('Server ID is missing', { status: 400 });
 
   try {
     const server = await db.server.delete({
@@ -47,7 +47,7 @@ export async function DELETE(
     });
     return NextResponse.json(server);
   } catch (error) {
-    console.log(["SERVER_ID_DELETE"], error);
-    return new NextResponse("Internal Error", { status: 500 });
+    console.log(['SERVER_ID_DELETE'], error);
+    return new NextResponse('Internal Error', { status: 500 });
   }
 }

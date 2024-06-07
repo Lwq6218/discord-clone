@@ -1,27 +1,27 @@
-"use client";
-import { X } from "lucide-react";
-import Image from "next/image";
-import { UploadDropzone } from "@/lib/uploadthing";
+'use client';
+import { X } from 'lucide-react';
+import Image from 'next/image';
+import { UploadDropzone } from '@/lib/uploadthing';
 
-import "@uploadthing/react/styles.css";
+import '@uploadthing/react/styles.css';
 
 interface FileUploadProps {
   onChange: (url?: string) => void;
   value: string;
-  endpoint: "messageFile" | "serverImage";
+  endpoint: 'messageFile' | 'serverImage';
 }
 const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
-  const fileType = value?.split(".").pop();
-  if (value && fileType !== "pdf") {
+  const fileType = value?.split('.').pop();
+  if (value && fileType !== 'pdf') {
     return (
-      <div className="relative size-20">
-        <Image fill src={value} alt="Upload" className="rounded-full" />
+      <div className='relative size-20'>
+        <Image fill src={value} alt='Upload' className='rounded-full' />
         <button
-          className="bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm"
-          onClick={() => onChange("")}
-          type="button"
+          className='absolute right-0 top-0 rounded-full bg-rose-500 p-1 text-white shadow-sm'
+          onClick={() => onChange('')}
+          type='button'
         >
-          <X className="size-4" />
+          <X className='size-4' />
         </button>
       </div>
     );

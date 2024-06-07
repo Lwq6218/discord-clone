@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import { Member, MemberRole, Profile, Server } from "@prisma/client";
-import { ShieldAlert, ShieldCheck } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import UserAvatar from "../user-avatar";
+import { cn } from '@/lib/utils';
+import { Member, MemberRole, Profile, Server } from '@prisma/client';
+import { ShieldAlert, ShieldCheck } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
+import UserAvatar from '../user-avatar';
 
 interface ServerMemberProps {
   member: Member & { profile: Profile };
@@ -14,9 +14,9 @@ interface ServerMemberProps {
 const roleIconMap = {
   [MemberRole.GUEST]: null,
   [MemberRole.MODERATOR]: (
-    <ShieldCheck className="size-2 ml-2 text-indigo-500" />
+    <ShieldCheck className='ml-2 size-2 text-indigo-500' />
   ),
-  [MemberRole.ADMIN]: <ShieldAlert className="size-2 ml-2 text-rose-500" />,
+  [MemberRole.ADMIN]: <ShieldAlert className='ml-2 size-2 text-rose-500' />,
 };
 const ServerMember = ({ member, server }: ServerMemberProps) => {
   const parmas = useParams();
@@ -26,16 +26,16 @@ const ServerMember = ({ member, server }: ServerMemberProps) => {
   return (
     <button
       className={cn(
-        "group p-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700 transition mb-1",
-        parmas?.memberId === member.id && "bg-zinc-700/20 dark:bg-zinc-700"
+        'group mb-1 flex w-full items-center gap-x-2 rounded-md p-2 transition hover:bg-zinc-700/10 dark:hover:bg-zinc-700',
+        parmas?.memberId === member.id && 'bg-zinc-700/20 dark:bg-zinc-700'
       )}
     >
-      <UserAvatar src={member.profile.imageUrl} className="size-8 md:size-8" />
+      <UserAvatar src={member.profile.imageUrl} className='size-8 md:size-8' />
       <p
         className={cn(
-          "font-semibold text-sm text-zinc-500 group-hover:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-zinc-300 transition",
+          'text-sm font-semibold text-zinc-500 transition group-hover:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-zinc-300',
           parmas?.channelId === member.id &&
-            "text-primary dark:text-zinc-200 dark:group-hover:text-white"
+            'text-primary dark:text-zinc-200 dark:group-hover:text-white'
         )}
       >
         {member.profile.name}

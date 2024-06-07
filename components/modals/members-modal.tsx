@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import qs from "query-string";
+import qs from 'query-string';
 import {
   Check,
   Gavel,
@@ -10,22 +10,22 @@ import {
   ShieldAlert,
   ShieldCheck,
   ShieldQuestion,
-} from "lucide-react";
-import { useState } from "react";
+} from 'lucide-react';
+import { useState } from 'react';
 
-import UserAvatar from "../user-avatar";
+import UserAvatar from '../user-avatar';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 
-import { MemberRole } from "@prisma/client";
-import { useModal } from "@/hooks/use-modal-store";
-import { ServerWithMembersWithProfiles } from "@/types";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { MemberRole } from '@prisma/client';
+import { useModal } from '@/hooks/use-modal-store';
+import { ServerWithMembersWithProfiles } from '@/types';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,19 +36,19 @@ import {
   DropdownMenuSubContent,
   DropdownMenuTrigger,
   DropdownMenuSubTrigger,
-} from "@/components/ui/dropdown-menu";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+} from '@/components/ui/dropdown-menu';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const roleIconMap = {
   GUEST: null,
-  MODERATOR: <ShieldCheck className="size-4 ml-2 text-indigo-500" />,
-  ADMIN: <ShieldAlert className="size-4 ml-2 text-rose-500" />,
+  MODERATOR: <ShieldCheck className='ml-2 size-4 text-indigo-500' />,
+  ADMIN: <ShieldAlert className='ml-2 size-4 text-rose-500' />,
 };
 const MembersModal = () => {
   const { onOpen, isOpen, onClose, type, data } = useModal();
-  const [loadingId, SetLoadingId] = useState("");
-  const isModalOpen = isOpen && type === "members";
+  const [loadingId, SetLoadingId] = useState('');
+  const isModalOpen = isOpen && type === 'members';
   const { server } = data as { server: ServerWithMembersWithProfiles };
   const router = useRouter();
 
@@ -63,11 +63,11 @@ const MembersModal = () => {
       });
       const response = await axios.delete(url);
       router.refresh();
-      onOpen("members", { server: response.data });
+      onOpen('members', { server: response.data });
     } catch (error) {
       console.log(error);
     } finally {
-      SetLoadingId("");
+      SetLoadingId('');
     }
   };
   const onRoleChange = async (memberId: string, role: MemberRole) => {
@@ -82,71 +82,71 @@ const MembersModal = () => {
 
       const response = await axios.patch(url, { role });
       router.refresh();
-      onOpen("members", { server: response.data });
+      onOpen('members', { server: response.data });
     } catch (error) {
       console.log(error);
     } finally {
-      SetLoadingId("");
+      SetLoadingId('');
     }
   };
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-white text-black overflow-hidden">
-        <DialogHeader className="pt-8 px-6">
-          <DialogTitle className="text-2xl text-center font-bold">
+      <DialogContent className='overflow-hidden bg-white text-black'>
+        <DialogHeader className='px-6 pt-8'>
+          <DialogTitle className='text-center text-2xl font-bold'>
             Manage Members
           </DialogTitle>
 
-          <DialogDescription className="text-center text-zinc-500 ">
+          <DialogDescription className='text-center text-zinc-500'>
             {server?.members?.length}
           </DialogDescription>
         </DialogHeader>
 
-        <ScrollArea className="mt-8 max-h-[420px] pr-6 ">
+        <ScrollArea className='mt-8 max-h-[420px] pr-6'>
           {server?.members?.map((member) => (
-            <div key={member.id} className="flex items-center gap-x-2 mb-6">
+            <div key={member.id} className='mb-6 flex items-center gap-x-2'>
               <UserAvatar src={member.profile.imageUrl} />
-              <div className="flex flex-col gap-y-1">
-                <div className="text-xs gap-x-1 font-semibold flex items-center ">
+              <div className='flex flex-col gap-y-1'>
+                <div className='flex items-center gap-x-1 text-xs font-semibold'>
                   {member.profile.name}
                   {roleIconMap[member.role]}
                 </div>
-                <p className="text-xs text-zinc-500">{member.profile.email}</p>
+                <p className='text-xs text-zinc-500'>{member.profile.email}</p>
               </div>
               {server.profileId !== member.profileId &&
                 loadingId !== member.id && (
-                  <div className="ml-auto">
+                  <div className='ml-auto'>
                     <DropdownMenu>
                       <DropdownMenuTrigger>
-                        <MoreVertical className="size-4 text-zinc-500" />
+                        <MoreVertical className='size-4 text-zinc-500' />
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent side="left">
+                      <DropdownMenuContent side='left'>
                         <DropdownMenuSub>
-                          <DropdownMenuSubTrigger className="flex items-center">
-                            <ShieldQuestion className="size-4 mr-2" />
+                          <DropdownMenuSubTrigger className='flex items-center'>
+                            <ShieldQuestion className='mr-2 size-4' />
                             <span>Role</span>
                           </DropdownMenuSubTrigger>
                           <DropdownMenuPortal>
                             <DropdownMenuSubContent>
                               <DropdownMenuItem
-                                onClick={() => onRoleChange(member.id, "GUEST")}
+                                onClick={() => onRoleChange(member.id, 'GUEST')}
                               >
-                                <Shield className="size-4 mr-2" />
+                                <Shield className='mr-2 size-4' />
                                 Guest
-                                {member.role === "GUEST" && (
-                                  <Check className="size-4 ml-auto" />
+                                {member.role === 'GUEST' && (
+                                  <Check className='ml-auto size-4' />
                                 )}
                               </DropdownMenuItem>
 
                               <DropdownMenuItem
                                 onClick={() =>
-                                  onRoleChange(member.id, "MODERATOR")
+                                  onRoleChange(member.id, 'MODERATOR')
                                 }
                               >
-                                <ShieldCheck className="size-4 mr-2" />
+                                <ShieldCheck className='mr-2 size-4' />
                                 Moderator
-                                {member.role === "MODERATOR" && (
-                                  <Check className="size-4 ml-auto" />
+                                {member.role === 'MODERATOR' && (
+                                  <Check className='ml-auto size-4' />
                                 )}
                               </DropdownMenuItem>
                             </DropdownMenuSubContent>
@@ -154,7 +154,7 @@ const MembersModal = () => {
                         </DropdownMenuSub>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={() => onKick(member.id)}>
-                          <Gavel className="size-4 mr-2" />
+                          <Gavel className='mr-2 size-4' />
                           Kick
                         </DropdownMenuItem>
                       </DropdownMenuContent>
@@ -162,7 +162,7 @@ const MembersModal = () => {
                   </div>
                 )}
               {loadingId === member.id && (
-                <Loader2 className="animate-spin text-zinc-500 ml-auto size-4" />
+                <Loader2 className='ml-auto size-4 animate-spin text-zinc-500' />
               )}
             </div>
           ))}

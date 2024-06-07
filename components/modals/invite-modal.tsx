@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Dialog,
@@ -6,20 +6,20 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { useModal } from "@/hooks/use-modal-store";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { Check, Copy, RefreshCw } from "lucide-react";
-import { useOrgin } from "@/hooks/use-origin";
-import { useState } from "react";
-import axios from "axios";
+} from '@/components/ui/dialog';
+import { useModal } from '@/hooks/use-modal-store';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import { Check, Copy, RefreshCw } from 'lucide-react';
+import { useOrgin } from '@/hooks/use-origin';
+import { useState } from 'react';
+import axios from 'axios';
 
 const InviteModal = () => {
   const { onOpen, isOpen, onClose, type, data } = useModal();
   const orgin = useOrgin();
-  const isModalOpen = isOpen && type === "invite";
+  const isModalOpen = isOpen && type === 'invite';
   const { server } = data;
   const [copied, setCopied] = useState(false);
   const [isLoading, SetIsLoading] = useState(false);
@@ -38,7 +38,7 @@ const InviteModal = () => {
       const response = await axios.patch(
         `/api/servers/${server?.id}/invite-code`
       );
-      onOpen("invite", { server: response.data });
+      onOpen('invite', { server: response.data });
     } catch (error) {
       console.log(error);
     } finally {
@@ -47,43 +47,43 @@ const InviteModal = () => {
   };
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden">
-        <DialogHeader className="pt-8 px-6">
-          <DialogTitle className="text-2xl text-center font-bold">
+      <DialogContent className='overflow-hidden bg-white p-0 text-black'>
+        <DialogHeader className='px-6 pt-8'>
+          <DialogTitle className='text-center text-2xl font-bold'>
             Invite Friends
           </DialogTitle>
-          <DialogDescription className="text-center text-zinc-500">
+          <DialogDescription className='text-center text-zinc-500'>
             Give your server a personality with a name and an image. You can
             always change it later.
           </DialogDescription>
         </DialogHeader>
-        <div className="p-6">
-          <Label className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70 ">
+        <div className='p-6'>
+          <Label className='text-xs font-bold uppercase text-zinc-500 dark:text-secondary/70'>
             Server invite link
           </Label>
-          <div className="flex items-center mt-2 gap-x-2">
+          <div className='mt-2 flex items-center gap-x-2'>
             <Input
               disabled={isLoading}
-              className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 "
+              className='border-0 bg-zinc-300/50 text-black focus-visible:ring-0 focus-visible:ring-offset-0'
               value={inviteUrl}
             />
-            <Button disabled={isLoading} size="icon" onClick={onCopy}>
+            <Button disabled={isLoading} size='icon' onClick={onCopy}>
               {copied ? (
-                <Check className="size-4" />
+                <Check className='size-4' />
               ) : (
-                <Copy className="size-4" />
+                <Copy className='size-4' />
               )}
             </Button>
           </div>
           <Button
             disabled={isLoading}
             onClick={onNew}
-            variant="link"
-            size="sm"
-            className="text-xs text-zinc-500 mt4"
+            variant='link'
+            size='sm'
+            className='mt4 text-xs text-zinc-500'
           >
             Generatea a new link
-            <RefreshCw className="size-4 ml-2" />
+            <RefreshCw className='ml-2 size-4' />
           </Button>
         </div>
       </DialogContent>

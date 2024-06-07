@@ -1,5 +1,5 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
-import { db } from "@/lib/db";
+import { auth, currentUser } from '@clerk/nextjs/server';
+import { db } from '@/lib/db';
 
 export const initialProfile = async () => {
   const user = await currentUser();

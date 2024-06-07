@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   CommandDialog,
@@ -7,16 +7,15 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
-import { Search } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import { type } from "os";
-import { useEffect, useState } from "react";
+} from '@/components/ui/command';
+import { Search } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 
 interface ServerSearchProps {
   data: {
     label: string;
-    type: "channel" | "member";
+    type: 'channel' | 'member';
     data:
       | {
           icon: React.ReactNode;
@@ -32,13 +31,13 @@ const ServerSearch = ({ data }: ServerSearchProps) => {
   const params = useParams();
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setOpen((open) => !open);
       }
     };
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
+    document.addEventListener('keydown', down);
+    return () => document.removeEventListener('keydown', down);
   }, []);
 
   const onClick = ({
@@ -46,13 +45,13 @@ const ServerSearch = ({ data }: ServerSearchProps) => {
     type,
   }: {
     id: string;
-    type: "channel" | "member";
+    type: 'channel' | 'member';
   }) => {
     setOpen(false);
-    if (type === "channel") {
+    if (type === 'channel') {
       return router.push(`/servers/${params?.serverId}/channels/${id}`);
     }
-    if (type === "member") {
+    if (type === 'member') {
       return router.push(`/servers/${params?.serverId}/conversation/${id}`);
     }
   };
@@ -60,18 +59,18 @@ const ServerSearch = ({ data }: ServerSearchProps) => {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="group p-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition"
+        className='group flex w-full items-center gap-x-2 rounded-md p-2 transition hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50'
       >
-        <Search className="size-4 text-zinc-500 dark:text-zinc-400" />
-        <p className="font-semibold text-sm text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition">
+        <Search className='size-4 text-zinc-500 dark:text-zinc-400' />
+        <p className='text-sm font-semibold text-zinc-500 transition group-hover:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-zinc-300'>
           Search
         </p>
-        <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground ml-auto">
-          <span className="text-xs">CTRL</span>K
+        <kbd className='pointer-events-none ml-auto inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground'>
+          <span className='text-xs'>CTRL</span>K
         </kbd>
       </button>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Search all channels and members" />
+        <CommandInput placeholder='Search all channels and members' />
         <CommandList>
           <CommandEmpty>No Results found</CommandEmpty>
           {data.map(({ label, type, data }) => {
