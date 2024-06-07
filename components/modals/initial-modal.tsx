@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   Dialog,
   DialogContent,
@@ -10,13 +10,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -49,7 +47,7 @@ const InitialModel = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      axios.post("/api/servers", values);
+      await axios.post("/api/servers", values);
       form.reset();
       router.refresh();
       window.location.reload();
