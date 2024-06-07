@@ -19,6 +19,7 @@ interface ModalStore {
   type: ModalType | null;
   data: ModalData;
   isOpen: boolean;
+  // eslint-disable-next-line no-unused-vars
   onOpen: (type: ModalType, data?: ModalData) => void;
   onClose: () => void;
 }
