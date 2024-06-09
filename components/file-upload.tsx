@@ -1,4 +1,5 @@
 'use client';
+
 import { UploadDropzone } from '@/lib/uploadthing';
 import { FileIcon, X } from 'lucide-react';
 import Image from 'next/image';
@@ -6,6 +7,7 @@ import Image from 'next/image';
 import '@uploadthing/react/styles.css';
 
 interface FileUploadProps {
+  // eslint-disable-next-line no-unused-vars
   onChange: (url?: string) => void;
   value: string;
   endpoint: 'messageFile' | 'serverImage';

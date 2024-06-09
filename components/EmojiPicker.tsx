@@ -11,6 +11,7 @@ import { Smile } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
 interface EmojiPickerProps {
+  // eslint-disable-next-line no-unused-vars
   onChange: (value: string) => void;
 }
 export const EmojiPicker = ({ onChange }: EmojiPickerProps) => {

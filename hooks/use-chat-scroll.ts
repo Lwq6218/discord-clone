@@ -5,14 +5,14 @@ type ChatScrollProps = {
   bottomRef: React.RefObject<HTMLDivElement>;
   shouldLoadMore: boolean;
   loadMore: () => void;
-  data: any;
+  count: number;
 };
 export const useChatScroll = ({
   chatRef,
   bottomRef,
   shouldLoadMore,
   loadMore,
-  data,
+  count,
 }: ChatScrollProps) => {
   const [hasInitialized, setHasInitialized] = useState(false);
   useEffect(() => {
@@ -55,5 +55,5 @@ export const useChatScroll = ({
         bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
       }, 100);
     }
-  }, [chatRef, data, bottomRef, hasInitialized]);
+  }, [chatRef, count, bottomRef, hasInitialized]);
 };

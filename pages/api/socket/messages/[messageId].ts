@@ -100,7 +100,6 @@ export default async function handler(
           },
         },
       });
-      return res.status(200).json(message);
     }
 
     if (req.method === 'PATCH') {
@@ -122,9 +121,7 @@ export default async function handler(
           },
         },
       });
-      return res.status(200).json(message);
     }
-
     const updateKey = `chat:${channelId}:messages:update`;
     res?.socket?.server?.io?.emit(updateKey, message);
     return res.status(200).json(message);

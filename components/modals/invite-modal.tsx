@@ -8,13 +8,13 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useModal } from '@/hooks/use-modal-store';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
-import { Check, Copy, RefreshCw } from 'lucide-react';
 import { useOrgin } from '@/hooks/use-origin';
-import { useState } from 'react';
 import axios from 'axios';
+import { Check, Copy, RefreshCw } from 'lucide-react';
+import { useState } from 'react';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
 
 const InviteModal = () => {
   const { onOpen, isOpen, onClose, type, data } = useModal();
@@ -80,7 +80,7 @@ const InviteModal = () => {
             onClick={onNew}
             variant='link'
             size='sm'
-            className='mt4 text-xs text-zinc-500'
+            className='mt-4 text-xs text-zinc-500'
           >
             Generatea a new link
             <RefreshCw className='ml-2 size-4' />
